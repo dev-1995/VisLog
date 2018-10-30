@@ -17,7 +17,7 @@ class App extends Component {
               backgroundPosition: "attachment",
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
-              height: "100vh"
+              height: "100%"
             }}
           >
             <Navbar />

@@ -4,7 +4,7 @@ import MainForm from "./containers/MainForm";
 import Navbar from "./components/Navbar";
 import { Grid } from "@material-ui/core";
 import { BrowserRouter as Router } from "react-router-dom";
-import vault from "./images/vault.jpg";
+import vault from "./images/1203.png";
 class App extends Component {
   render() {
     return (
@@ -17,7 +17,7 @@ class App extends Component {
               backgroundPosition: "attachment",
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
-              height: "100vh"
+              height: "100%"
             }}
           >
             <Navbar />

@@ -1,5 +1,15 @@
 import { UPDATE_FORM_DATA } from "../actions/Types";
-const initialState = {};
+const initialState = {
+  name: "",
+  contact: "",
+  gender: "female",
+  vehicleNo: "",
+  vehicleType: "two",
+  location: "",
+  image: {},
+  src: "",
+  error: ""
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {

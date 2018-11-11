@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from "react";
+import React, { PureComponent } from "react";
 import {
   Grid,
   Card,
@@ -10,17 +10,13 @@ import {
   RadioGroup,
   Radio,
   FormLabel,
-  InputAdornment,
   FormHelperText,
-  Button,
-  IconButton
+  Button
 } from "@material-ui/core";
 import { Icon } from "react-icons-kit";
 import { ic_face } from "react-icons-kit/md/ic_face";
 import { ic_details } from "react-icons-kit/md/ic_details";
 import { ic_camera_enhance } from "react-icons-kit/md/ic_camera_enhance";
-import { ic_access_time } from "react-icons-kit/md/ic_access_time";
-import format from "date-fns/format";
 export default class extends PureComponent {
   videoConstraints = {
     width: 1280,
@@ -29,10 +25,12 @@ export default class extends PureComponent {
   };
 
   render() {
+    const { updateForm, saveFormData, state } = this.props;
+    const srcLength = state.src.length;
     return (
       <Grid container>
-        <Grid item md={1} item />
-        <Grid item xs={12} item md={10}>
+        <Grid item md={1} />
+        <Grid item xs={12} md={10}>
           <Card
             style={{
               borderRadius: "10px",
@@ -45,6 +43,7 @@ export default class extends PureComponent {
                 <Grid
                   xs={12}
                   md={8}
+                  item
                   style={{
                     background: "#F9F9FB",
                     paddingTop: "20px",
@@ -54,7 +53,7 @@ export default class extends PureComponent {
                 >
                   <Typography
                     style={{ textAlign: "center", color: "#000" }}
-                    variant="display1"
+                    variant="h5"
                   >
                     Visitor Details
                   </Typography>
@@ -82,6 +81,8 @@ export default class extends PureComponent {
                     InputLabelProps={{
                       shrink: true
                     }}
+                    id="name"
+                    onChange={updateForm}
                   />
                   <TextField
                     label="Contact"
@@ -90,6 +91,8 @@ export default class extends PureComponent {
                     InputLabelProps={{
                       shrink: true
                     }}
+                    id="contact"
+                    onChange={updateForm}
                   />
 
                   <FormControl
@@ -112,11 +115,10 @@ export default class extends PureComponent {
                     <RadioGroup
                       aria-label="gender"
                       name="gender2"
+                      id="gender"
                       style={{ flexDirection: "row" }}
-                      // className={classes.group}
-                      // value={this.state.value}
-                      // onChange={this.handleChange}
-                      value={"female"}
+                      value={state.gender}
+                      onChange={e => updateForm.apply(null, [e, "gender"])}
                     >
                       <FormControlLabel
                         value="female"
@@ -170,16 +172,15 @@ export default class extends PureComponent {
                       }}
                       component="legend"
                     >
-                      Gender
+                      Vehicle Type
                     </FormLabel>
                     <RadioGroup
                       aria-label="gender"
                       name="gender2"
                       style={{ flexDirection: "row" }}
-                      // className={classes.group}
-                      // value={this.state.value}
-                      // onChange={this.handleChange}
-                      value={"two"}
+                      onChange={e => updateForm.apply(null, [e, "vehicle"])}
+                      id="vehicleType"
+                      value={state.vehicleType}
                     >
                       <FormControlLabel
                         value="two"
@@ -202,6 +203,8 @@ export default class extends PureComponent {
                     InputLabelProps={{
                       shrink: true
                     }}
+                    id="vehicleNo"
+                    onChange={updateForm}
                     margin="normal"
                   />
                   <TextField
@@ -210,6 +213,8 @@ export default class extends PureComponent {
                     InputLabelProps={{
                       shrink: true
                     }}
+                    id="location"
+                    onChange={updateForm}
                     margin="normal"
                   />
                 </Grid>
@@ -217,7 +222,7 @@ export default class extends PureComponent {
                   md={4}
                   item
                   style={{
-                    marginLeft: "-30px",
+                    marginLeft: "0px",
                     boxShadow: "-13px 10px 28px 0px grey",
                     background: "#fff",
                     textAlign: "center"
@@ -239,13 +244,32 @@ export default class extends PureComponent {
                     />{" "}
                     Visitor's Photograp
                   </Typography>
-                  {this.props.children}
+
+                  {srcLength > 0 ? (
+                    <img
+                      alt="visitor"
+                      src={state.src}
+                      height={320}
+                      width={280}
+                      style={{
+                        display: "block",
+                        paddingLeft: "18%",
+                        marginBottom: 30
+                      }}
+                    />
+                  ) : (
+                    this.props.children
+                  )}
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={this.props.capture}
+                    onClick={e => {
+                      return srcLength < 1
+                        ? this.props.capture.apply(null, [e, "capture"])
+                        : this.props.capture.apply(null, [e, "recapture"]);
+                    }}
                   >
-                    Capture
+                    {srcLength > 0 ? "Re-Capture" : "Capture"}
                   </Button>
                   <Typography
                     variant="caption"
@@ -255,7 +279,9 @@ export default class extends PureComponent {
                       textAlign: "center"
                     }}
                   >
-                    * Please adjust camera to get clear image
+                    {srcLength > 0
+                      ? null
+                      : "* Please adjust camera to get clear image"}
                   </Typography>
                   <Button
                     color="primary"
@@ -266,23 +292,14 @@ export default class extends PureComponent {
                       marginTop: 80
                     }}
                     variant="contained"
+                    onClick={saveFormData}
                   >
                     Save
                   </Button>
                   <FormHelperText style={{ textAlign: "center" }} error>
-                    * Some error to be reported
-                  </FormHelperText>
-                  <FormHelperText style={{ textAlign: "center" }} error>
-                    * Some error to be reported
-                  </FormHelperText>
-                  <FormHelperText style={{ textAlign: "center" }} error>
-                    * Some error to be reported
-                  </FormHelperText>
-                  <FormHelperText style={{ textAlign: "center" }} error>
-                    * Some error to be reported
-                  </FormHelperText>
-                  <FormHelperText style={{ textAlign: "center" }} error>
-                    * Some error to be reported
+                    {state.error.length > 0
+                      ? "* Some error to be reported"
+                      : null}
                   </FormHelperText>
                 </Grid>
               </Grid>

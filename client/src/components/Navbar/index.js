@@ -1,6 +1,6 @@
-import React, { Fragment } from "react";
+import React from "react";
 import logo from "../../images/logo-sm.png";
-import { Grid, Button, AppBar, Toolbar } from "@material-ui/core";
+import { Button, AppBar, Toolbar } from "@material-ui/core";
 import { Link } from "react-router-dom";
 export default () => {
   return (
@@ -13,7 +13,9 @@ export default () => {
           <img src={logo} />
         </span>
 
-        <Button color="inherit">Home</Button>
+        <Button component={Link} to="/home" color="inherit">
+          Home
+        </Button>
         <Button color="inherit">Out List</Button>
         <Button color="inherit">Login</Button>
       </Toolbar>

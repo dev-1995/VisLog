@@ -1,3 +1,6 @@
+import Visitor from "../../Model/Log";
 export default async (req, h) => {
-  return h.response({ ok: "ok" });
+  const visitors = await Visitor.find({ endDate: null });
+  // console.log(visitors);
+  return h.response({ visitors: visitors });
 };

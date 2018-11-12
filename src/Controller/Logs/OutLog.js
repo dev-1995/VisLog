@@ -13,10 +13,10 @@ export default async (req, h) => {
         endDate,
         out: true
       });
-      return h.response({ success: "Record Updated!" });
+      const visitors = await Visitor.find({ endDate: null });
+      return h.response({ success: "Record Updated!", list: visitors });
     }
   } catch (e) {
-    console.log(e);
     return h.response({ message: "Invalid OID" }).code(309);
   }
   return h.response({ message: "Invalid Log" }).code(404);

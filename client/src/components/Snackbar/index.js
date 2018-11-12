@@ -1,10 +1,16 @@
 import React, { Fragment } from "react";
-import { Snackbar, SnackbarContent, IconButton } from "@material-ui/core";
+import {
+  Snackbar,
+  SnackbarContent,
+  IconButton,
+  withStyles
+} from "@material-ui/core";
 import { ic_close } from "react-icons-kit/md/ic_close";
+import green from "@material-ui/core/colors/green";
 
 import { Icon } from "react-icons-kit";
-export default props => {
-  const { open } = props;
+const Snack = props => {
+  const { open, className, classes, onClose } = props;
   return (
     <Snackbar
       open={open}
@@ -17,21 +23,24 @@ export default props => {
       ContentProps={{
         "aria-describedby": "message-id"
       }}
-      onDropCapture={e => console.log("Drop")}
-      action={[
-        <IconButton
-          key="close"
-          aria-label="Close"
-          color="inherit"
-          onClick={console.log}
-        >
-          <Icon icon={ic_close} style={{ color: "#fff" }} />
-        </IconButton>
-      ]}
+      onClose={e => onClose.apply(null, [e, "closesnack"])}
     >
       <SnackbarContent
-        message={<span id="message-id">Data Saved Successfully !</span>}
+        className={classes.root}
+        message={props.message}
+        action={[
+          <IconButton
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            className={classes.close}
+            onClick={e => onClose.apply(null, [e, "closesnack"])}
+          >
+            <Icon icon={ic_close} />
+          </IconButton>
+        ]}
       />
     </Snackbar>
   );
 };
+export default withStyles({ root: { background: green[600] } })(Snack);

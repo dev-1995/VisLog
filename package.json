@@ -14,6 +14,7 @@
     "boom": "^7.2.0",
     "dotenv": "^6.1.0",
     "hapi": "^17.6.0",
+    "inert": "^5.1.2",
     "joi-error-formatter": "^0.5.3",
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.23",

@@ -17,6 +17,7 @@ import { Icon } from "react-icons-kit";
 import { ic_face } from "react-icons-kit/md/ic_face";
 import { ic_details } from "react-icons-kit/md/ic_details";
 import { ic_camera_enhance } from "react-icons-kit/md/ic_camera_enhance";
+import Loader from "../Loader";
 import Snack from "../Snackbar";
 export default class extends PureComponent {
   videoConstraints = {
@@ -305,7 +306,10 @@ export default class extends PureComponent {
 
                   {state.error.length > 0 ? (
                     <FormHelperText style={{ textAlign: "center" }} error>
-                      * {state.error}
+                      *{" "}
+                      {state.error.indexOf("contact")
+                        ? "Contact must be contain 10 digits"
+                        : state.error}
                     </FormHelperText>
                   ) : null}
                 </Grid>
@@ -314,7 +318,12 @@ export default class extends PureComponent {
           </Card>
         </Grid>
         <Grid item md={1} />
-        <Snack open={state.saved} />
+        <Loader open={state.isSaving} message={"Saving Details..."} />
+        <Snack
+          open={state.saved}
+          message={" Details Saved Successfully !"}
+          onClose={updateForm}
+        />
       </Grid>
     );
   }

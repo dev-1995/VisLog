@@ -27,6 +27,8 @@ class MainForm extends Component {
         return this.props.updateForm({ src: data, image: blob });
       case "recapture":
         return this.props.updateForm({ src: "" });
+      case "closesnack":
+        return this.props.updateForm({ saved: false });
       default:
         return this.props.updateForm({ [data.target.id]: data.target.value });
     }
@@ -42,7 +44,6 @@ class MainForm extends Component {
       location,
       src
     } = this.props.FormState;
-    console.log("Here");
     const data = new FormData();
     data.append("image", image);
     data.append("contact", contact);
@@ -51,7 +52,11 @@ class MainForm extends Component {
     data.append("vehicleNo", vehicleNo);
     data.append("gender", gender);
     data.append("location", location);
-    return src.length > 0 ? this.props.saveFormData(data) : null;
+
+    if (src.length > 0) {
+      this.props.updateForm({ isSaving: true, saved: false });
+      this.props.saveFormData(data);
+    }
   };
 
   render() {

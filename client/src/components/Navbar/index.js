@@ -16,7 +16,9 @@ export default () => {
         <Button component={Link} to="/home" color="inherit">
           Home
         </Button>
-        <Button color="inherit">Out List</Button>
+        <Button component={Link} to="/out" color="inherit">
+          Out List
+        </Button>
         <Button color="inherit">Login</Button>
       </Toolbar>
     </AppBar>

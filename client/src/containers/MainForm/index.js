@@ -3,35 +3,55 @@ import MainFormComp from "../../components/MainForm";
 import Webcam from "react-webcam";
 import { connect } from "react-redux";
 import { updateForm, saveFormData } from "../../store/actions/FormActions";
+import ToBlob from "../../Utility/CreateBlob";
 class MainForm extends Component {
   setRef = webcam => {
     this.camRef = webcam;
   };
   capture = (data, type = "") => {
-    console.log(type);
     if (type !== "capture") {
       return this.updateFormData("", type);
     }
     const imageSrc = this.camRef.getScreenshot();
+
     return this.updateFormData(imageSrc, type);
   };
   updateFormData = (data, type = "") => {
-    console.log("type", type);
     switch (type.toLowerCase()) {
       case "gender":
         return this.props.updateForm({ gender: data.target.value });
       case "vehicle":
         return this.props.updateForm({ vehicleType: data.target.value });
       case "capture":
-        return this.props.updateForm({ src: data });
+        let blob = ToBlob(data, "image/jpeg");
+        return this.props.updateForm({ src: data, image: blob });
       case "recapture":
         return this.props.updateForm({ src: "" });
       default:
-        console.log("de", type);
         return this.props.updateForm({ [data.target.id]: data.target.value });
     }
   };
-  saveData = () => {};
+  saveData = () => {
+    const {
+      image,
+      contact,
+      name,
+      vehicleType,
+      vehicleNo,
+      gender,
+      location,
+      src
+    } = this.props.FormState;
+    const data = new FormData();
+    data.append("image", image);
+    data.append("contact", contact);
+    data.append("name", name);
+    data.append("vehicleType", vehicleType);
+    data.append("vehicleNo", vehicleNo);
+    data.append("gender", gender);
+    data.append("location", location);
+    return src.length > 0 ? this.props.saveFormData(data) : null;
+  };
 
   render() {
     return (

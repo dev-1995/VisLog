@@ -17,6 +17,7 @@ import { Icon } from "react-icons-kit";
 import { ic_face } from "react-icons-kit/md/ic_face";
 import { ic_details } from "react-icons-kit/md/ic_details";
 import { ic_camera_enhance } from "react-icons-kit/md/ic_camera_enhance";
+import Snack from "../Snackbar";
 export default class extends PureComponent {
   videoConstraints = {
     width: 1280,
@@ -27,6 +28,7 @@ export default class extends PureComponent {
   render() {
     const { updateForm, saveFormData, state } = this.props;
     const srcLength = state.src.length;
+    console.log(state);
     return (
       <Grid container>
         <Grid item md={1} />
@@ -82,6 +84,7 @@ export default class extends PureComponent {
                       shrink: true
                     }}
                     id="name"
+                    value={state.name}
                     onChange={updateForm}
                   />
                   <TextField
@@ -91,6 +94,7 @@ export default class extends PureComponent {
                     InputLabelProps={{
                       shrink: true
                     }}
+                    value={state.contact}
                     id="contact"
                     onChange={updateForm}
                   />
@@ -206,6 +210,7 @@ export default class extends PureComponent {
                     id="vehicleNo"
                     onChange={updateForm}
                     margin="normal"
+                    value={state.vehicleNo}
                   />
                   <TextField
                     label="Location to visit"
@@ -213,6 +218,7 @@ export default class extends PureComponent {
                     InputLabelProps={{
                       shrink: true
                     }}
+                    value={state.location}
                     id="location"
                     onChange={updateForm}
                     margin="normal"
@@ -249,11 +255,11 @@ export default class extends PureComponent {
                     <img
                       alt="visitor"
                       src={state.src}
-                      height={320}
-                      width={280}
+                      height={280}
+                      width={320}
                       style={{
                         display: "block",
-                        paddingLeft: "18%",
+                        paddingLeft: "10%",
                         marginBottom: 30
                       }}
                     />
@@ -296,17 +302,19 @@ export default class extends PureComponent {
                   >
                     Save
                   </Button>
-                  <FormHelperText style={{ textAlign: "center" }} error>
-                    {state.error.length > 0
-                      ? "* Some error to be reported"
-                      : null}
-                  </FormHelperText>
+
+                  {state.error.length > 0 ? (
+                    <FormHelperText style={{ textAlign: "center" }} error>
+                      * {state.error}
+                    </FormHelperText>
+                  ) : null}
                 </Grid>
               </Grid>
             </CardContent>
           </Card>
         </Grid>
         <Grid item md={1} />
+        <Snack open={state.saved} />
       </Grid>
     );
   }

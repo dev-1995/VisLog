@@ -1,5 +1,7 @@
 import createLog from "./Controller/Logs/CreateLog";
 import Joi from "joi";
+import OutLog from "./Controller/Logs/OutLog";
+import GetAllLogs from "./Controller/Logs/GetAllLogs";
 export default [
   {
     method: "GET",
@@ -17,7 +19,7 @@ export default [
   },
   {
     method: "POST",
-    path: "/api/v1/getotp",
+    path: "/createlog",
     config: {
       auth: false,
       payload: {
@@ -28,17 +30,15 @@ export default [
       validate: {
         payload: {
           name: Joi.string().required(),
-          date: Joi.date().required(),
-          email: Joi.string()
-            .email()
-            .required(),
           contact: Joi.string()
             .min(10)
-            .max(10)
+            .max(11)
             .required(),
-          doc: Joi.required(),
-          slotTime: Joi.date().required(),
-          fileName: Joi.string().required()
+          gender: Joi.string().required(),
+          location: Joi.string().required(),
+          vehicleNo: Joi.string().required(),
+          vehicleType: Joi.string().required(),
+          image: Joi.required()
         }
       }
     },
@@ -46,15 +46,20 @@ export default [
   },
   {
     method: "POST",
-    path: "/createLog",
+    path: "/outlog",
     config: {
-      auth: false,
       validate: {
         payload: {
-          ok: Joi.string().required()
+          OID: Joi.string().required()
         }
       }
     },
-    handler: createLog
+    handler: OutLog
+  },
+
+  {
+    method: "GET",
+    path: "/getpending",
+    handler: GetAllLogs
   }
 ];

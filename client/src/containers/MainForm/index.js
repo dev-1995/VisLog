@@ -42,6 +42,7 @@ class MainForm extends Component {
       location,
       src
     } = this.props.FormState;
+    console.log("Here");
     const data = new FormData();
     data.append("image", image);
     data.append("contact", contact);

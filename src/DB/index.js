@@ -11,7 +11,8 @@ mongoose
       user: process.env.MONGO_USR,
       pass: process.env.MONGO_PWD,
       useCreateIndex: true,
-      useNewUrlParser: true
+      useNewUrlParser: true,
+      useMongoClient: true
     }
   )
   .then(() => console.log("Connected to DB!"))

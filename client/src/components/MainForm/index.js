@@ -28,7 +28,6 @@ export default class extends PureComponent {
   render() {
     const { updateForm, saveFormData, state } = this.props;
     const srcLength = state.src.length;
-    console.log(state);
     return (
       <Grid container>
         <Grid item md={1} />
@@ -94,6 +93,7 @@ export default class extends PureComponent {
                     InputLabelProps={{
                       shrink: true
                     }}
+                    type="number"
                     value={state.contact}
                     id="contact"
                     onChange={updateForm}

@@ -25,10 +25,6 @@ export default (state = initialState, action) => {
         ...action.payload
       };
     case SAVE_FORM_DATA:
-      console.log({
-        ...initialState,
-        ...action.payload
-      });
       return {
         ...initialState,
         ...action.payload

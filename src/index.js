@@ -1,3 +1,4 @@
+import "babel-polyfill";
 import Hapi from "hapi";
 import Routes from "./routes";
 import { load as loadEnv } from "dotenv";
@@ -5,7 +6,6 @@ import FormatJoi from "joi-error-formatter";
 import Boom from "boom";
 import inert from "inert";
 import "./DB";
-import "babel-polyfill";
 loadEnv();
 const Server = Hapi.Server({
   port: process.env.PORT || 9000,

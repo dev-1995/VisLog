@@ -52,10 +52,22 @@ class MainForm extends Component {
     data.append("vehicleNo", vehicleNo);
     data.append("gender", gender);
     data.append("location", location);
-
+    if (contact.length < 10 || contact.length > 10) {
+      return this.props.updateForm({
+        error: "Contact Must contain 10 Digits"
+      });
+    } else {
+      this.props.updateForm({
+        error: ""
+      });
+    }
     if (src.length > 0) {
       this.props.updateForm({ isSaving: true, saved: false });
       this.props.saveFormData(data);
+    } else {
+      this.props.updateForm({
+        error: "Please capture image to continue!"
+      });
     }
   };
 

@@ -3,7 +3,7 @@ const initialState = {
   list: [],
   error: "",
   isLoading: false,
-  markedOut: true
+  markedOut: false
 };
 export default (state = initialState, action) => {
   switch (action.type) {

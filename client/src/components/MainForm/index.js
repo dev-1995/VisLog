@@ -307,7 +307,7 @@ export default class extends PureComponent {
                   {state.error.length > 0 ? (
                     <FormHelperText style={{ textAlign: "center" }} error>
                       *{" "}
-                      {state.error.indexOf("contact")
+                      {state.error.indexOf("contact") > -1
                         ? "Contact must be contain 10 digits"
                         : state.error}
                     </FormHelperText>

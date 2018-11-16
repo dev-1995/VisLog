@@ -29,6 +29,7 @@ class App extends Component {
                 <Route path="/home" exact component={MainForm} />
                 <Route path="/" exact component={MainForm} />
                 <Route path="/out" exact component={OutList} />
+                <Route path="bG9ncw==" exact component={}></Route>
               </Switch>
             </Grid>
           </div>

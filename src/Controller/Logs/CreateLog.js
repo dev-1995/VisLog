@@ -10,16 +10,19 @@ export default async (req, h) => {
     vehicleType,
     vehicleNo,
     gender,
-    location
+    location,
+    noimage
   } = req.payload;
   const dir = path.resolve() + "/src/Uploads/";
-  const fileName = await UploadFile(
-    moment()
-      .toDate()
-      .getTime() + ".jpg",
-    image,
-    dir
-  );
+  const fileName = noimage
+    ? ""
+    : await UploadFile(
+        moment()
+          .toDate()
+          .getTime() + ".jpg",
+        image,
+        dir
+      );
   const startDate = moment()
     .tz("Asia/Kolkata")
     .toDate();
@@ -37,6 +40,7 @@ export default async (req, h) => {
   try {
     await newVisitor.save();
   } catch (e) {
+    console.log(e);
     return h.response({ message: e });
   }
   return h.response({ entry: newVisitor });

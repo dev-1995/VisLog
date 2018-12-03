@@ -19,7 +19,7 @@ export default () => {
         <Button component={Link} to="/out" color="inherit">
           Out List
         </Button>
-        <Button component={Link} to="/bG9ncw==" color="inherit">
+        <Button component={Link} to="#" color="inherit">
           Login
         </Button>
       </Toolbar>

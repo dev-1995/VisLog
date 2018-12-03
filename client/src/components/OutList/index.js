@@ -1,5 +1,11 @@
 import React, { PureComponent, Fragment } from "react";
-import { Grid, Card, Typography, CardContent, Button } from "@material-ui/core";
+import {
+  Grid,
+  Card,
+  Typography,
+  CardContent,
+  IconButton
+} from "@material-ui/core";
 import { Icon } from "react-icons-kit";
 import { automobile } from "react-icons-kit/fa/automobile";
 import { motorcycle } from "react-icons-kit/fa/motorcycle";
@@ -13,6 +19,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { signOut } from "react-icons-kit/fa/signOut";
 import Loader from "../Loader";
 import moment from "moment-timezone";
+import nocam from "../../images/nocam.jpg";
 const styles = theme => ({
   root: {
     overflow: "visible"
@@ -50,7 +57,7 @@ class OutList extends PureComponent {
                     }}
                   >
                     <img
-                      src={`/uploads/${i.image}`}
+                      src={i.image === "" ? nocam : `/uploads/${i.image}`}
                       alt="profile"
                       width="150"
                       height="150"
@@ -124,18 +131,21 @@ class OutList extends PureComponent {
                         .format("D-MM-YYYY hh:mm A")
                         .toString()}
                     </Typography>
-                    <Button
+                    <IconButton
                       variant="fab"
                       style={{
                         background: "#FE7C8D",
                         right: "-58%",
-                        top: -10
+                        top: -10,
+                        width: "60px",
+                        height: "60px",
+                        boxShadow: " 4px -1px 10px grey"
                       }}
-                      data-UID={i._id}
+                      id={i._id}
                       onClick={markOut}
                     >
                       <Icon icon={signOut} size={25} />
-                    </Button>
+                    </IconButton>
                   </CardContent>
                 </Card>
               </Grid>

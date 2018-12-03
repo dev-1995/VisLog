@@ -1,6 +1,5 @@
 import fs from "fs";
 export default async (fileName, blob, dir) => {
-  console.log(blob);
   try {
     await fs.createWriteStream(dir + fileName).write(blob._data);
   } catch (e) {

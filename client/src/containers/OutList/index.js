@@ -10,10 +10,14 @@ class Out extends Component {
   componentDidMount() {
     this.props.setInfo({ isLoading: true });
     this.props.fetchList();
-    setInterval(this.props.fetchList, 10000);
+    const id = setInterval(this.props.fetchList, 10000);
+    this.props.setInfo({ timerId: id });
+  }
+  componentWillUnmount() {
+    clearInterval(this.props.OutState.timerId);
   }
   markOut(e) {
-    const id = e.target.parentElement.parentElement.parentElement.dataset.uid;
+    const id = e.currentTarget.id;
     this.props.updateRecord({ OID: id });
   }
   updateinfo = data => {

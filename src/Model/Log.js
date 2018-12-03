@@ -6,7 +6,7 @@ let VisSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  image: { type: String, required: true },
+  image: { type: String },
 
   startDate: { type: Date, required: true },
   endDate: { type: Date, default: null },

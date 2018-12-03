@@ -68,6 +68,7 @@ class MainForm extends Component {
     data.append("vehicleNo", vehicleNo);
     data.append("gender", gender);
     data.append("location", location);
+
     if (contact.length < 10 || contact.length > 10) {
       return this.props.updateForm({
         error: "Contact Must contain 10 Digits"
@@ -78,9 +79,11 @@ class MainForm extends Component {
       });
     }
     if (src.length > 0 && this.props.FormState.camera === true) {
+      data.append("noimage", false);
       this.props.updateForm({ isSaving: true, saved: false });
       this.props.saveFormData(data);
     } else if (this.props.FormState.camera === false) {
+      data.append("noimage", true);
       this.props.updateForm({ isSaving: true, saved: false });
       this.props.saveFormData(data);
     } else {

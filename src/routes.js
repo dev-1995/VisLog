@@ -68,7 +68,8 @@ export default [
           location: Joi.string().required(),
           vehicleNo: Joi.string().required(),
           vehicleType: Joi.string().required(),
-          image: Joi.required()
+          image: Joi.required(),
+          noimage: Joi.bool().required()
         }
       }
     },

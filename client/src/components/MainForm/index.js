@@ -275,6 +275,7 @@ export default class extends PureComponent {
                         ? this.props.capture.apply(null, [e, "capture"])
                         : this.props.capture.apply(null, [e, "recapture"]);
                     }}
+                    disabled={state.camera === false}
                   >
                     {srcLength > 0 ? "Re-Capture" : "Capture"}
                   </Button>
@@ -286,9 +287,9 @@ export default class extends PureComponent {
                       textAlign: "center"
                     }}
                   >
-                    {srcLength > 0
-                      ? null
-                      : "* Please adjust camera to get clear image"}
+                    {srcLength < 1 && state.camera === true
+                      ? "* Please adjust camera to get clear image"
+                      : null}
                   </Typography>
                   <Button
                     color="primary"

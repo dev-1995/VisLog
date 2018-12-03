@@ -14,7 +14,8 @@ const initialState = {
   src: "",
   error: "",
   isSaving: false,
-  saved: false
+  saved: false,
+  camera: false
 };
 
 export default (state = initialState, action) => {
